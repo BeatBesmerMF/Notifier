@@ -15,7 +15,7 @@ namespace Notifyer.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "SubscribeToMachine")]
+        [HttpGet("[action]")]
         public void SubscribeToMachine()
         {
             return;
