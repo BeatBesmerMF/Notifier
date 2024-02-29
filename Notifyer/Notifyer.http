@@ -1,4 +1,4 @@
-@Notifyer_HostAddress = http://localhost:5216
+@Notifyer_HostAddress = https://localhost:7010
 
 POST {{Notifyer_HostAddress}}/commands/subscribeToMachine
 Content-Type: application/json
@@ -7,5 +7,10 @@ Content-Type: application/json
     "userId" : "some user id",
     "machineId" : "some machine id"
 }
+
+###
+
+
+GET {{Notifyer_HostAddress}}/queries/Statistics
 
 ###

@@ -1,4 +1,5 @@
 using Notifyer.Events;
+using Notifyer.State;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EventStore>();
+builder.Services.AddSingleton<StatisticsState>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
