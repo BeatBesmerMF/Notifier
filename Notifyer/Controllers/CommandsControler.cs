@@ -15,10 +15,12 @@ namespace Notifyer.Controllers
         );
 
         private readonly ILogger<CommandsController> _logger;
+        private readonly EventStore eventStore;
 
-        public CommandsController(ILogger<CommandsController> logger)
+        public CommandsController(ILogger<CommandsController> logger, EventStore eventStore)
         {
             _logger = logger;
+            this.eventStore = eventStore;
         }
 
         [HttpPost("[action]")]
@@ -30,13 +32,13 @@ namespace Notifyer.Controllers
                 return BadRequest("IDs cannot be empty!");
             }
 
-            Console.WriteLine(new Event<UserSubscribedToMachine>(
+            eventStore.StoreEvents([new Event<UserSubscribedToMachine>(
                 Subject: Request.GetDisplayUrl(),
                 Data: new (
                     UserId: subscriptionDetail.UserId,
                     MachineId: subscriptionDetail.MachineId
                 )
-            ));
+            )]);
 
             return Ok();
         }
