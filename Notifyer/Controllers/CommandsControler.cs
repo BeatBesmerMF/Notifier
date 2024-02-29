@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Notifyer.Events;
@@ -32,8 +33,10 @@ namespace Notifyer.Controllers
                 return BadRequest("IDs cannot be empty!");
             }
 
+            var subscriptionId = Guid.NewGuid().ToString();
+
             eventStore.StoreEvents([new Event<UserSubscribedToMachine>(
-                Subject: Request.GetDisplayUrl(),
+                Subject: $"/subscriptions/{subscriptionId}",
                 Data: new (
                     UserId: subscriptionDetail.UserId,
                     MachineId: subscriptionDetail.MachineId
