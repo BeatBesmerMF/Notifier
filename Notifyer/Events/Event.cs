@@ -20,11 +20,11 @@ public class BaseEvent
     }
 }
 
-public class Event<T> : BaseEvent
+public class Event<T> : BaseEvent where T : class
 {
     public T Data { get; }
     public Event(string Subject, T Data) :
-    base(nameof(T), Subject)
+    base(Data.GetType().Name, Subject)
     {
         this.Data = Data;
     }

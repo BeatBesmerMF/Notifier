@@ -32,8 +32,10 @@ namespace Notifyer.Controllers
                 return BadRequest("IDs cannot be empty!");
             }
 
+            var subscriptionId = Guid.NewGuid();
+
             eventStore.StoreEvents([new Event<UserSubscribedToMachine>(
-                Subject: Request.GetDisplayUrl(),
+                Subject: $"/subscriptions/{subscriptionId}",
                 Data: new (
                     UserId: subscriptionDetail.UserId,
                     MachineId: subscriptionDetail.MachineId
