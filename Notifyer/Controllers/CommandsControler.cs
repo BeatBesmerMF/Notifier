@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Notifyer.Events;
 
 namespace Notifyer.Controllers
 {
@@ -8,10 +10,9 @@ namespace Notifyer.Controllers
     public class CommandsController : ControllerBase
     {
         public record SubscriptionDetail(
-        String userId,
-        String machineId
+        string UserId,
+        string MachineId
         );
-
 
         private readonly ILogger<CommandsController> _logger;
 
@@ -21,10 +22,23 @@ namespace Notifyer.Controllers
         }
 
         [HttpPost("[action]")]
-        public void SubscribeToMachine(SubscriptionDetail subscriptionDetail)
+        public IActionResult SubscribeToMachine(SubscriptionDetail subscriptionDetail)
         {
-            Console.WriteLine(subscriptionDetail);
-            return;
+            if (String.IsNullOrEmpty(subscriptionDetail.UserId) ||
+                String.IsNullOrEmpty(subscriptionDetail.MachineId))
+            {
+                return BadRequest("IDs cannot be empty!");
+            }
+
+            Console.WriteLine(new Event<UserSubscribedToMachine>(
+                Subject: Request.GetDisplayUrl(),
+                Data: new (
+                    UserId: subscriptionDetail.UserId,
+                    MachineId: subscriptionDetail.MachineId
+                )
+            ));
+
+            return Ok();
         }
     }
 }
