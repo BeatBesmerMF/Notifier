@@ -1,12 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.PortableExecutable;
 
 namespace Notifyer.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
     public class CommandsController : ControllerBase
     {
+        public record SubscriptionDetail(
+        String userId,
+        String machineId
+        );
+
 
         private readonly ILogger<CommandsController> _logger;
 
@@ -15,9 +20,10 @@ namespace Notifyer.Controllers
             _logger = logger;
         }
 
-        [HttpGet("[action]")]
-        public void SubscribeToMachine()
+        [HttpPost("[action]")]
+        public void SubscribeToMachine(SubscriptionDetail subscriptionDetail)
         {
+            Console.WriteLine(subscriptionDetail);
             return;
         }
     }

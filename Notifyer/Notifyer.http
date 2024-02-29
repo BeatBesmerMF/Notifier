@@ -1,6 +1,11 @@
 @Notifyer_HostAddress = http://localhost:5216
 
-GET {{Notifyer_HostAddress}}/commands/subscribeToMachine/
-Accept: application/json
+POST {{Notifyer_HostAddress}}/commands/subscribeToMachine
+Content-Type: application/json
+
+{
+    "userId" : "some user id",
+    "machineId" : "some machine id"
+}
 
 ###
