@@ -26,4 +26,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+var statisticsState = app.Services.GetRequiredService<StatisticsState>();
+
+app.Services.GetRequiredService<EventStore>().eventHandler += (sender, e) =>
+{
+    statisticsState.Project(e.Event);
+};
+
 app.Run();
