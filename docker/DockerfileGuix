@@ -1,0 +1,12 @@
+FROM lscr.io/linuxserver/code-server:latest
+RUN --mount=type=bind,source=./tools.tar,target=/tmp/tools/tools.tar \
+    mkdir -p /tmp/tools/extracted && \
+    cd /tmp/tools/extracted && \
+    tar xf ../tools.tar && \
+    cp -r ./gnu / && \
+    cd tools/bin && \
+    find ./ ! -type d -exec cp -a {} /bin/{} \; && \
+    cd /usr/bin && \
+    curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > lein && \
+    chmod +x /usr/bin/lein && \
+    cd / && rm -rf /tmp/tools/extracted

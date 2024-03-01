@@ -1,0 +1,20 @@
+@Notifier_HostAddress = http://localhost:8080
+
+POST {{Notifier_HostAddress}}/commands/subscribeToMachine
+Content-Type: application/json
+
+{
+    "userId" : "soe user id",
+    "machineId" : "some machine id"
+}
+
+###
+
+
+GET {{Notifier_HostAddress}}/queries/Statistics
+
+###
+
+GET {{Notifier_HostAddress}}/
+
+###
